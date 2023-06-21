@@ -10,12 +10,14 @@ from sklearn.model_selection import train_test_split
 
 df = pd.read_csv('Heart_Disease_Prediction.csv')
 
-st.title('Heart Disease Prediction App')
+st.title('Heart Disease Prediction app')
 st.write("""
-# Heart Disease Prediction App
-
-This app predicts the likelihood of having Heart Disease
+## This app predicts the likelihood of having Heart Disease
 
 Data obtained from the University of California Irvine data repository and is used to predict heart disease
  https://data.world/informatics-edu/heart-disease-prediction/workspace/file?filename=+Heart_Disease_Prediction.csv
 """)
+st.subheader('Training Data')
+st.write(df.head())
+st.write(df.describe())
+

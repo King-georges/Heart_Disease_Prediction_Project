@@ -23,3 +23,6 @@ st.subheader('Training Data')
 st.write(df.head())
 st.write(df.describe())
 
+st.subheader('Visualisation')
+st.write("Bar chart:")
+

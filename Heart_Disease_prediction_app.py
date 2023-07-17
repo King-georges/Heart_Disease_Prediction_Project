@@ -17,14 +17,28 @@ st.set_page_config(page_title="Heart Disease Prediction App",
                 page_icon= ":bar_chart:")
 st.title('Heart Disease Prediction app')
 st.write("""
-## This app predicts the likelihood of having Heart Disease
+## This app predicts the likelihood of having Heart Disease.
 
-Data obtained from the University of California Irvine data repository and is used to predict heart disease
+Data obtained from the University of California Irvine data repository and is used to predict heart disease. Patients were classified as having or not having heart disease based on cardiac catheterization, the gold standard. If they had more than 50% narrowing of a coronary artery they were labeled as having heart disease.
+
  https://data.world/informatics-edu/heart-disease-prediction/workspace/file?filename=+Heart_Disease_Prediction.csv
 """)
-st.subheader('Training Data')
-st.write(df.head())
-st.write(df.describe())
+st.write('---')
+def load_lottieurl(url):
+     r = requests.get(url)
+     if r.status_code != 200:
+          return None
+     return r.json()
+
+lottie_coding = "https://lottie.host/1ea84b8b-b12a-466e-b4b5-8889e2af00de/FqIw2IixwF.json"
+
+left_column, right_column = st.columns(2)
+with left_column:
+     st.subheader('Training Data')
+     st.write(df.head())
+     st.write(df.describe())
+with right_column:
+     st_lottie(lottie_coding, height=300, key="heart")
 
 st.subheader('Visualisation')
 st.write("Bar chart:")

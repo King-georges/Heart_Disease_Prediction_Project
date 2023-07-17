@@ -38,11 +38,48 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, rando
 
 st.sidebar.header('User Input Features')
 def user_features():
-        Thallium = st.sidebar.slider('Thallium', 3, 7)
-        Numberofvesselsfluro = st.sidebar.slider('Number of vessels fluro', 0, 3)
-        Exerciseangina = st.sidebar.slider('Exercise angina', 0, 1)
-        Maxheartrate = st.sidebar.slider('Max HR,', 71, 202)
-        STdepression = st.sidebar.slider('ST Depression', 0, 6.2)
-        Chestpaintype = st.sidebar.slider('Chest pain type', 1, 4)
-        SlopeofST = st.sidebar.slider('Slope of ST', 1, 3)
-        Age = st.sidebar.slider('Age', 29, 77 )
+        thallium = st.sidebar.slider('Thallium', 3, 7)
+        numberofvesselsfluro = st.sidebar.slider('Number of vessels fluro', 0, 3)
+        exerciseangina = st.sidebar.slider('Exercise angina', 0, 1)
+        maxheartrate = st.sidebar.slider('Max HR,', 71, 202)
+        stdepression = st.sidebar.slider('ST Depression', 0, 6)
+        chestpaintype = st.sidebar.slider('Chest pain type', 1, 4)
+        slopeofST = st.sidebar.slider('Slope of ST', 1, 3)
+        age = st.sidebar.slider('Age', 29, 77 )
+    
+        user_features = {
+               'Thallium': thallium,
+               'Number of vessels fluro': numberofvesselsfluro,
+               'Exercise angina' : exerciseangina,
+               'Max HR' : maxheartrate,
+               'ST Depression' : stdepression,
+               'Chest pain type' : chestpaintype,
+               'Slope of ST' : slopeofST,
+               'Age' : age
+
+    } 
+        report_data = pd.DataFrame(user_features, index=[0])
+        return report_data
+
+user_data = user_features()
+
+scaler = StandardScaler()
+
+x_train = scaler.fit_transform(x_train)
+x_test = scaler.transform(x_test)
+
+reg = LogisticRegression()
+reg.fit(x_train, y_train)
+
+st.subheader('Accuracy')
+st.write(str(accuracy_score(y_test, reg.predict(x_test))*100)+'%')
+
+user_result = reg.predict(user_data)
+st.subheader('Your Report: ')
+output = ''
+if user_result[0]==0:
+    output = 'You are likely to Test Negative For Heart Disease'
+else:
+    output = 'You are likely to Test Positive For Heart Disease'
+
+st.write(output)

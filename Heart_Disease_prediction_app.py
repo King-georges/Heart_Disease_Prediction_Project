@@ -31,24 +31,23 @@ def load_lottieurl(url):
      return r.json()
 
 lottie_coding = "https://lottie.host/1ea84b8b-b12a-466e-b4b5-8889e2af00de/FqIw2IixwF.json"
+x = df.drop(columns = 'Heart Disease')
+
+y = df['Heart Disease']
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 0)
 
 left_column, right_column = st.columns(2)
 with left_column:
      st.subheader('Training Data')
-     st.write(df.head())
-     st.write(df.describe())
+     st.write(x_train.head())
+     st.write(x_train.describe())
 with right_column:
      st_lottie(lottie_coding, height=300, key="heart")
 
 st.subheader('Visualisation')
 st.write("Bar chart:")
-st._legacy_bar_chart(df)
+st._legacy_bar_chart(x_train)
 
-x = df.drop(columns = 'Heart Disease')
-
-y = df['Heart Disease']
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 0)
 
 st.sidebar.header('User Input Features')
 def user_features():

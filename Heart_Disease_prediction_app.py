@@ -106,3 +106,28 @@ else:
     output = 'You are likely to Test Positive For Heart Disease'
 
 st.write(output)
+
+def local_css(file_name):
+     with open(file_name) as f:
+          st.markdown (f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("style/style.css")
+
+with st.container():
+     st.write("---")
+     st.header("Get in touch with me!")
+     st.write("##")
+     contact_form = '''
+     <input type="hidden" name="_captcha" value="false">
+     <form action="https://formsubmit.co/opondigeorge@gmail.com" method="POST">
+     <input type="text" name="name" placeholder="Your name" required>
+     <input type="email" name="email" placeholder="Your email" required>
+     <textarea name="Message" placeholder="Your message here" required></textarea>
+     <button type="submit">Send</button>
+</form>
+'''
+left_column, right_column = st.columns (2)
+with left_column:
+     st.markdown (contact_form, unsafe_allow_html=True)
+     with right_column:
+          st.empty()

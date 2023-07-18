@@ -13,6 +13,9 @@ from sklearn.model_selection import train_test_split
 
 df = pd.read_csv('Heart_Disease_Prediction.csv')
 
+df.drop(columns=['BP', 'Cholesterol', 'FBS over 120', 'EKG results'], axis=1, inplace=True)
+
+
 st.set_page_config(page_title="Heart Disease Prediction App",
                 page_icon= ":bar_chart:")
 st.title('Heart Disease Prediction app')
@@ -59,6 +62,9 @@ def user_features():
         chestpaintype = st.sidebar.slider('Chest pain type', 1, 4)
         slopeofST = st.sidebar.slider('Slope of ST', 1, 3)
         age = st.sidebar.slider('Age', 29, 77 )
+        sex = st.selectbox('Sex', [1, 0])
+        
+
     
         user_features = {
                'Thallium': thallium,
@@ -68,7 +74,8 @@ def user_features():
                'ST Depression' : stdepression,
                'Chest pain type' : chestpaintype,
                'Slope of ST' : slopeofST,
-               'Age' : age
+               'Age' : age,
+               'Sex' : sex
 
     } 
         report_data = pd.DataFrame(user_features, index=[0])

@@ -50,6 +50,8 @@ st.subheader('Visualisation')
 st.write("Bar chart:")
 st._legacy_bar_chart(x_train)
 
+st.write("1 represents Male and 0 represents Female")
+
 
 
 st.sidebar.header('User Input Features')
@@ -84,6 +86,7 @@ def user_features():
 user_data = user_features()
 
 scaler = StandardScaler()
+user_data_scaled = scaler.fit_transform(user_data)
 
 x_train = scaler.fit_transform(x_train)
 x_test = scaler.transform(x_test)
@@ -94,9 +97,9 @@ reg.fit(x_train, y_train)
 st.subheader('Accuracy')
 st.write(str(accuracy_score(y_test, reg.predict(x_test))*100)+'%')
 
-user_result = reg.predict(user_data)
+user_result = reg.predict(user_data_scaled)
 st.subheader('Your Report: ')
-output = ''
+
 if user_result[0]==0:
     output = 'You are likely to Test Negative For Heart Disease'
 else:

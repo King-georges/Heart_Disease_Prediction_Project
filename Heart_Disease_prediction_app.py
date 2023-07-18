@@ -126,8 +126,10 @@ with st.container():
      <button type="submit">Send</button>
 </form>
 '''
+lottie_animation = "https://lottie.host/87b1eda6-f65b-47f0-b06a-fa93ee6f73ba/bNjIHSLbzV.json"
 left_column, right_column = st.columns (2)
 with left_column:
      st.markdown (contact_form, unsafe_allow_html=True)
      with right_column:
-          st.empty()
+          st_lottie(lottie_animation, height=00, key="message")
+          

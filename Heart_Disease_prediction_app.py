@@ -13,7 +13,6 @@ from sklearn.model_selection import train_test_split
 
 df = pd.read_csv('Heart_Disease_Prediction.csv')
 
-df.drop(columns=['BP', 'Cholesterol', 'FBS over 120', 'EKG results'], axis=1, inplace=True)
 
 
 st.set_page_config(page_title="Heart Disease Prediction App",
@@ -58,8 +57,12 @@ st.sidebar.header('User Input Features')
 def user_features():
         thallium = st.sidebar.slider('Thallium', 3, 7)
         numberofvesselsfluro = st.sidebar.slider('Number of vessels fluro', 0, 3)
+        bloodpressure = st.sidebar.slider('BP', 94, 200)
+        fbsover120 = st.sidebar.slider('FBS over 120', 0, 1)
+        cholesterol = st.sidebar.slider('Cholesterol', 126, 564)
+        ekgresults = st.sidebar.slider('EKG results', 0, 2)
         exerciseangina = st.sidebar.slider('Exercise angina', 0, 1)
-        maxheartrate = st.sidebar.slider('Max HR,', 71, 202)
+        maxheartrate = st.sidebar.slider('Max HR', 71, 202)
         stdepression = st.sidebar.slider('ST Depression', 0, 6)
         chestpaintype = st.sidebar.slider('Chest pain type', 1, 4)
         slopeofST = st.sidebar.slider('Slope of ST', 1, 3)
@@ -71,6 +74,10 @@ def user_features():
         user_features = {
                'Thallium': thallium,
                'Number of vessels fluro': numberofvesselsfluro,
+               'BP' : bloodpressure,
+               'FBS over 120' : fbsover120,
+               'Cholesterol' : cholesterol,
+               'EKG results' : ekgresults,
                'Exercise angina' : exerciseangina,
                'Max HR' : maxheartrate,
                'ST Depression' : stdepression,
@@ -100,7 +107,7 @@ st.write(str(accuracy_score(y_test, reg.predict(x_test))*100)+'%')
 user_result = reg.predict(user_data_scaled)
 st.subheader('Your Report: ')
 
-if user_result[0]==0:
+if user_result[0] == 0:
     output = 'You are likely to Test Negative For Heart Disease'
 else:
     output = 'You are likely to Test Positive For Heart Disease'

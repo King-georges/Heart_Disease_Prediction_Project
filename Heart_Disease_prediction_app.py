@@ -36,7 +36,7 @@ lottie_coding = "https://lottie.host/1ea84b8b-b12a-466e-b4b5-8889e2af00de/FqIw2I
 x = df.drop(columns = 'Heart Disease')
 
 y = df['Heart Disease']
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 0)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 42)
 
 left_column, right_column = st.columns(2)
 with left_column:

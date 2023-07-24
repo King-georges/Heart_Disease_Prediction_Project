@@ -1,15 +1,14 @@
 import streamlit as st
 import requests
-import plotly.express as px
 from streamlit_lottie import st_lottie
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn import metrics
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
 
 df = pd.read_csv('Heart_Disease_Prediction.csv')
 
@@ -23,7 +22,8 @@ st.write("""
 
 Data obtained from the University of California Irvine data repository and is used to predict heart disease. Patients were classified as having or not having heart disease based on cardiac catheterization, the gold standard. If they had more than 50% narrowing of a coronary artery they were labeled as having heart disease.
 
- https://data.world/informatics-edu/heart-disease-prediction/workspace/file?filename=+Heart_Disease_Prediction.csv
+ https://data.world/informatics-edu/heart-disease-prediction/workspace/file?filename=+Heart_Disease_Prediction.csv . 
+         It is most suitable for medical experts with the necessary domain knowledge on Heart disease
 """)
 st.write('---')
 def load_lottieurl(url):
@@ -55,18 +55,18 @@ st.write("1 represents Male and 0 represents Female")
 
 st.sidebar.header('User Input Features')
 def user_features():
-        thallium = st.sidebar.slider('Thallium', 3, 7)
+        thallium = st.sidebar.slider('Thallium', 0, 7)
         numberofvesselsfluro = st.sidebar.slider('Number of vessels fluro', 0, 3)
-        bloodpressure = st.sidebar.slider('BP', 94, 200)
+        bloodpressure = st.sidebar.slider('BP', 70, 300)
         fbsover120 = st.sidebar.slider('FBS over 120', 0, 1)
-        cholesterol = st.sidebar.slider('Cholesterol', 126, 564)
+        cholesterol = st.sidebar.slider('Cholesterol', 100, 600)
         ekgresults = st.sidebar.slider('EKG results', 0, 2)
         exerciseangina = st.sidebar.slider('Exercise angina', 0, 1)
-        maxheartrate = st.sidebar.slider('Max HR', 71, 202)
+        maxheartrate = st.sidebar.slider('Max HR', 60, 210)
         stdepression = st.sidebar.slider('ST Depression', 0, 6)
         chestpaintype = st.sidebar.slider('Chest pain type', 1, 4)
         slopeofST = st.sidebar.slider('Slope of ST', 1, 3)
-        age = st.sidebar.slider('Age', 29, 77 )
+        age = st.sidebar.slider('Age', 18, 77 )
         sex = st.selectbox('Sex', [1, 0])
         
 
@@ -107,10 +107,10 @@ st.write(str(accuracy_score(y_test, reg.predict(x_test))*100)+'%')
 user_result = reg.predict(user_data_scaled)
 st.subheader('Your Report: ')
 
-if user_result[0] == 0:
-    output = 'You are likely to Test Negative For Heart Disease'
-else:
+if user_result[0] == 1:
     output = 'You are likely to Test Positive For Heart Disease'
+else:
+    output = 'You are likely to Test Negative For Heart Disease'
 
 st.write(output)
 
